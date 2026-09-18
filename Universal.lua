@@ -27,14 +27,14 @@ task.spawn(function()
     end)
 end)
 
--- Parent для GUI
+-- Parent for GUI
 local function GetParent()
     local success, result = pcall(gethui)
     if success and result then return result end
     return game:GetService("CoreGui")
 end
 
--- Создание GUI
+-- GUI
 local parent = GetParent()
 local old = parent:FindFirstChild("UniversalV5")
 if old then old:Destroy() end
@@ -56,7 +56,6 @@ Main.Parent = ScreenGui
 
 Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 10)
 
--- Title
 local Title = Instance.new("TextLabel")
 Title.Size = UDim2.new(1, 0, 0, 34)
 Title.BackgroundColor3 = Color3.fromRGB(28, 28, 40)
@@ -67,7 +66,6 @@ Title.TextSize = 15
 Title.Parent = Main
 Instance.new("UICorner", Title).CornerRadius = UDim.new(0, 10)
 
--- Close
 local Close = Instance.new("TextButton")
 Close.Size = UDim2.new(0, 28, 0, 28)
 Close.Position = UDim2.new(1, -31, 0, 3)
@@ -82,7 +80,6 @@ Close.MouseButton1Click:Connect(function()
     ScreenGui:Destroy()
 end)
 
--- Container
 local Container = Instance.new("ScrollingFrame")
 Container.Size = UDim2.new(1, -10, 1, -42)
 Container.Position = UDim2.new(0, 5, 0, 38)
@@ -95,7 +92,6 @@ local List = Instance.new("UIListLayout")
 List.Padding = UDim.new(0, 5)
 List.Parent = Container
 
--- Кнопки
 local function Toggle(name, callback)
     local btn = Instance.new("TextButton")
     btn.Size = UDim2.new(1, -4, 0, 29)
@@ -129,9 +125,6 @@ local function Button(name, callback)
     btn.MouseButton1Click:Connect(callback)
 end
 
--- ================= ФУНКЦИИ =================
-
--- Fly
 local Flying = false
 local BV, BG
 
@@ -178,7 +171,6 @@ Toggle("Fly", function(state)
     end
 end)
 
--- Noclip
 local NoclipConn
 Toggle("Noclip", function(state)
     if state then
@@ -197,7 +189,6 @@ Toggle("Noclip", function(state)
     end
 end)
 
--- ESP
 local ESPFolder = Instance.new("Folder", ScreenGui)
 ESPFolder.Name = "ESP"
 
@@ -247,7 +238,6 @@ Players.PlayerAdded:Connect(function(plr)
     end)
 end)
 
--- Infinite Jump
 Toggle("Infinite Jump", function(state)
     Settings.InfiniteJump = state
 end)
@@ -259,8 +249,7 @@ UserInputService.JumpRequest:Connect(function()
     end
 end)
 
--- Aimbot
-Toggle("Aimbot (ПКМ)", function(state)
+Toggle("Aimbot (RMB)", function(state)
     Settings.Aimbot = state
 end)
 
@@ -270,7 +259,7 @@ local function GetClosest()
     if not myHRP then return end
 
     for _, plr in pairs(Players:GetPlayers()) do
-        if plr \~= LocalPlayer and plr.Character then
+        if plr ~= LocalPlayer and plr.Character then
             local hrp = plr.Character:FindFirstChild("HumanoidRootPart")
             local hum = plr.Character:FindFirstChildOfClass("Humanoid")
             if hrp and hum and hum.Health > 0 then
@@ -294,7 +283,6 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
--- Fullbright
 local oldLight = {}
 Toggle("Fullbright", function(state)
     if state then
@@ -312,7 +300,6 @@ Toggle("Fullbright", function(state)
     end
 end)
 
--- God Mode
 local GodConn
 Toggle("God Mode", function(state)
     if state then
@@ -325,7 +312,6 @@ Toggle("God Mode", function(state)
     end
 end)
 
--- Speed
 Button("Speed 50", function()
     Settings.WalkSpeed = 50
     local hum = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
@@ -354,7 +340,6 @@ Button("Teleport to Nearest", function()
     end
 end)
 
--- Сохранение скорости
 LocalPlayer.CharacterAdded:Connect(function(char)
     task.wait(0.7)
     local hum = char:FindFirstChildOfClass("Humanoid")
